@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_vertical">
+
+    <EditText
+        android:id="@+id/TextoNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese su nombre para comenzar" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="INGRESAR"
+        android:onClick="NombreIngresado"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/Boton1"
+            android:tag="0"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:onClick="Boton"
+            android:scaleType="centerInside"
+            ></ImageButton>
+
+        <ImageButton
+            android:id="@+id/Boton2"
+            android:tag="1"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:onClick="Boton"
+            android:scaleType="centerInside"
+            >
+
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/Boton3"
+            android:tag="2"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:scaleType="centerInside"
+            android:onClick="Boton">
+        </ImageButton>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/Boton4"
+            android:tag="3"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:scaleType="centerInside"
+            android:onClick="Boton">
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/Boton5"
+            android:tag="4"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:scaleType="centerInside"
+            android:onClick="Boton">
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/Boton6"
+            android:tag="5"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:scaleType="centerInside"
+            android:onClick="Boton">
+        </ImageButton>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/Boton7"
+            android:tag="6"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:scaleType="centerInside"
+            android:onClick="Boton">
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/Boton8"
+            android:tag="7"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:scaleType="centerInside"
+            android:onClick="Boton">
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/Boton9"
+            android:tag="8"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:scaleType="centerInside"
+            android:onClick="Boton">
+        </ImageButton>
+    </LinearLayout>
+</LinearLayout>
