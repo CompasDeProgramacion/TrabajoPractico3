@@ -1,5 +1,7 @@
 package zioncosta.trabajopractico3;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity
 {
     ImageButton[] ArrayBotones = new ImageButton[9];
+    DbHelper AccesoDb;
+    SQLiteDatabase BaseDeDatosRicolina;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,6 +40,43 @@ public class MainActivity extends AppCompatActivity
             ArrayBotones[i].setEnabled(false);
         }
     }
+    public boolean DbAbierta()
+    {
+        boolean Respuesta = false;
+        //Declaro el helper y la base de datos
+        AccesoDb = new  DbHelper(this, "BaseTP3", null, 1);
+        BaseDeDatosRicolina = AccesoDb.getWritableDatabase();
+        //Verifico que la base de datos exista, comprobando que no sea null
+        if (BaseDeDatosRicolina != null)
+        {
+            Respuesta = true;
+        }
+        BaseDeDatosRicolina.close();
+        return Respuesta;
+    }
+    public boolean YaJugo(String Nombre)
+    {
+        if (DbAbierta())
+        {
+            //Ejecuto una consulta que devuelve los registros
+            Cursor Registros = BaseDeDatosRicolina.rawQuery("select Nombre from Personas", null);
+            //Si hay registros entro al if y la repetitiva
+            if (Registros.moveToFirst())
+            {
+                //Leo los registros hasta que encuentre un nombre igual al ingresado, o que termine de recorer los registros
+                do
+                {
+                    //Si el nombre ingresado es igual al del registro, devuelvo true finalizando el do while
+                    if (Nombre == Registros.getString(0)){
+                        return  true;
+                    }
+                } while(Registros.moveToNext());
+            }
+        }
+        BaseDeDatosRicolina.close();
+        //Si no encontre un nombre igual o no pude abrir la Db devuelvo false
+        return  false;
+    }
 
     public void NombreIngresado(View view)
     {
@@ -54,9 +95,16 @@ public class MainActivity extends AppCompatActivity
                 ArrayBotones[i].setEnabled(true);
             }
             AsignarImagen();
-            Toast Bienvenida;
-            Bienvenida = Toast.makeText(this, "Bienvenido/a " + StringNombre, Toast.LENGTH_SHORT);
-            Bienvenida.show();
+            if (YaJugo(StringNombre))
+            {
+                Toast BienvenidoDevuelta = Toast.makeText(this, "¡Bienvenido/a nuevamente " + StringNombre + "!", Toast.LENGTH_SHORT);
+                BienvenidoDevuelta.show();
+            }
+            else
+            {
+                Toast PrimeraBienvenida = Toast.makeText(this, "¡Bienvenido/a por primera vez " + StringNombre + "!. Ojalá disfrutes del juego :)", Toast.LENGTH_SHORT);
+                PrimeraBienvenida.show();                
+            }
         }
     }
 
