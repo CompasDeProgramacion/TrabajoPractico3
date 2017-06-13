@@ -1,5 +1,6 @@
 package zioncosta.trabajopractico3;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
@@ -24,8 +25,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        
         ArrayBotones[0] = (ImageButton) findViewById(R.id.Boton1);
         ArrayBotones[1] = (ImageButton) findViewById(R.id.Boton2);
         ArrayBotones[2] = (ImageButton) findViewById(R.id.Boton3);
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
             ArrayBotones[i].setEnabled(false);
         }
     }
-    public boolean DbAbierta()
+    public boolean ConexionBaseDatos()
     {
         boolean Respuesta = false;
         //Declaro el helper y la base de datos
@@ -54,9 +54,10 @@ public class MainActivity extends AppCompatActivity
         BaseDeDatosRicolina.close();
         return Respuesta;
     }
+    
     public boolean YaJugo(String Nombre)
     {
-        if (DbAbierta())
+        if (ConexionBaseDatos())
         {
             //Ejecuto una consulta que devuelve los registros
             Cursor Registros = BaseDeDatosRicolina.rawQuery("select Nombre from Personas", null);
@@ -77,7 +78,18 @@ public class MainActivity extends AppCompatActivity
         //Si no encontre un nombre igual o no pude abrir la Db devuelvo false
         return  false;
     }
-
+    
+    public void AgregarABaseDatos(String NombreDelChaboncito)
+    {
+        if(ConexionBaseDatos())
+        {
+            ContentValues NuevoRegistro = new ContentValues();
+            NuevoRegistro.put("Nombre", NombreDelChaboncito);
+            BaseDeDatosRicolina.insert("Personas", null, NuevoRegistro);
+            BaseDeDatosRicolina.close();
+        }
+    }
+    
     public void NombreIngresado(View view)
     {
         EditText TextoNombre = (EditText) findViewById(R.id.TextoNombre);
@@ -102,8 +114,9 @@ public class MainActivity extends AppCompatActivity
             }
             else
             {
+                AgregarABaseDatos(StringNombre);
                 Toast PrimeraBienvenida = Toast.makeText(this, "¡Bienvenido/a por primera vez " + StringNombre + "!. Ojalá disfrutes del juego :)", Toast.LENGTH_SHORT);
-                PrimeraBienvenida.show();                
+                PrimeraBienvenida.show();
             }
         }
     }
