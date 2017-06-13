@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         {
             Respuesta = true;
         }
-        BaseDeDatosRicolina.close();
+        //BaseDeDatosRicolina.close();
         return Respuesta;
     }
     
@@ -68,13 +68,16 @@ public class MainActivity extends AppCompatActivity
                 do
                 {
                     //Si el nombre ingresado es igual al del registro, devuelvo true finalizando el do while
-                    if (Nombre == Registros.getString(0)){
-                        return  true;
+                    String NombreSQL = Registros.getString(0);
+                    int Comparador = NombreSQL.compareTo(Nombre);
+                    if(Comparador==0)
+                    {
+                        return true;
                     }
                 } while(Registros.moveToNext());
             }
         }
-        BaseDeDatosRicolina.close();
+        //BaseDeDatosRicolina.close();
         //Si no encontre un nombre igual o no pude abrir la Db devuelvo false
         return  false;
     }
@@ -86,7 +89,7 @@ public class MainActivity extends AppCompatActivity
             ContentValues NuevoRegistro = new ContentValues();
             NuevoRegistro.put("Nombre", NombreDelChaboncito);
             BaseDeDatosRicolina.insert("Personas", null, NuevoRegistro);
-            BaseDeDatosRicolina.close();
+            //BaseDeDatosRicolina.close();
         }
     }
     
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity
             else
             {
                 AgregarABaseDatos(StringNombre);
-                Toast PrimeraBienvenida = Toast.makeText(this, "¡Bienvenido/a por primera vez " + StringNombre + "!. Ojalá disfrutes del juego :)", Toast.LENGTH_SHORT);
+                Toast PrimeraBienvenida = Toast.makeText(this, "¡Bienvenido/a por primera vez " + StringNombre + "! Ojalá disfrutes del juego :)", Toast.LENGTH_LONG);
                 PrimeraBienvenida.show();
             }
         }
