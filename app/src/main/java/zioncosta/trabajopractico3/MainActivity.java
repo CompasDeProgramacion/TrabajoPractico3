@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity
             {
                 ArrayBotones[i].setEnabled(true);
             }
+            TextView EstaJugandoUsuario = (TextView) findViewById(R.id.EstaJugandoUsuario);
+            EstaJugandoUsuario.setVisibility(View.VISIBLE);
             AsignarImagen();
             if (YaJugo(StringNombre))
             {
